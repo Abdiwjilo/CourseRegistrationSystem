@@ -6,9 +6,7 @@ import javax.persistence.Id;
 
 @Embeddable
 public class Address {
-    @Id
-    @GeneratedValue
-    private long id;
+
     private String street;
     private String city;
     private String postalCode;
