@@ -58,6 +58,12 @@ public class StudentController {
         }
     }
 
+    @PutMapping(path = "students/{id}", consumes = "application/json")
+    public ResponseEntity<?> updateStudent(@PathVariable Long id, @RequestBody StudentDto studentDto) {
+        Student student = studentService.updateStudent(id, studentDto);
+        return ResponseHandler.respond("Successfully updated a student!", HttpStatus.ACCEPTED, student);
+    }
+
     @DeleteMapping("students/{id}")
     public ResponseEntity<?> deleteFaculty(@PathVariable Long id) {
         studentService.removeStudent(id);
