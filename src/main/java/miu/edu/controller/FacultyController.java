@@ -51,6 +51,12 @@ public class FacultyController {
         }
     }
 
+    @PutMapping(path = "faculties/{id}", consumes = "application/json")
+    public ResponseEntity<?> updateFaculty(@PathVariable Long id, @RequestBody FacultyDto facultyDto) {
+        Faculty faculty = facultyService.updateFaculty(id, facultyDto);
+        return ResponseHandler.respond("Successfully updated a faculty!", HttpStatus.ACCEPTED, faculty);
+    }
+
         @DeleteMapping("faculties/{id}")
         public ResponseEntity<?> deleteFaculty(@PathVariable Long id) {
             facultyService.removeFaculty(id);
