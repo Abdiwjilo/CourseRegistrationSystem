@@ -1,7 +1,9 @@
 package miu.edu.controller;
 
 import miu.edu.dto.AcademicBlockDto;
+import miu.edu.dto.FacultyDto;
 import miu.edu.model.AcademicBlock;
+import miu.edu.model.Faculty;
 import miu.edu.repository.AcademicBlockRepository;
 import miu.edu.service.Implementation.AcademicBlockServiceImpl;
 import miu.edu.util.ResponseHandler;
@@ -48,6 +50,12 @@ public class AcademicBlockController {
         } else {
             return ResponseHandler.respond("Null entities found", HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @PutMapping(path = "academicblocks/{id}", consumes = "application/json")
+    public ResponseEntity<?> updateAcademicBlock(@PathVariable Long id, @RequestBody AcademicBlockDto academicBlockDto) {
+        AcademicBlock academicBlock = academicBlockService.updateAcademicBlock(id, academicBlockDto);
+        return ResponseHandler.respond("Successfully updated a academicBlock!", HttpStatus.ACCEPTED, academicBlock);
     }
 
     @DeleteMapping("academicblocks/{id}")
