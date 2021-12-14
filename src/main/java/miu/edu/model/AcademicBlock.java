@@ -1,13 +1,15 @@
 package miu.edu.model;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
+import miu.edu.dto.CourseDto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter@Setter@ToString
 
@@ -21,6 +23,9 @@ public class AcademicBlock {
     private String semester;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Course> courses;
 
 
     public AcademicBlock() {}

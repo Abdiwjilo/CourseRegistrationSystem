@@ -1,6 +1,7 @@
 package miu.edu.service.Implementation;
 
 import miu.edu.dto.StudentDto;
+import miu.edu.model.Address;
 import miu.edu.model.Student;
 import miu.edu.repository.StudentRepository;
 import miu.edu.service.StudentService;
@@ -69,6 +70,24 @@ public class StudentServiceImpl implements StudentService {
         student.setStudentId(studentDto.getStudentId());
         student.setName(studentDto.getName());
         student.setEmail(studentDto.getEmail());
+
+        Address mailingAddress = new Address();
+        mailingAddress.setStreet(studentDto.getMailingAddress().getStreet());
+        mailingAddress.setCity(studentDto.getMailingAddress().getCity());
+        mailingAddress.setPostalCode(studentDto.getMailingAddress().getPostalCode());
+        mailingAddress.setState_province(studentDto.getMailingAddress().getState_province());
+        mailingAddress.setCountry_region(studentDto.getMailingAddress().getCountry_region());
+
+
+        Address homeAddress = new Address();
+        homeAddress.setStreet(studentDto.getHomeAddress().getStreet());
+        homeAddress.setCity(studentDto.getHomeAddress().getCity());
+        homeAddress.setPostalCode(studentDto.getHomeAddress().getPostalCode());
+        homeAddress.setState_province(studentDto.getHomeAddress().getState_province());
+        homeAddress.setCountry_region(studentDto.getHomeAddress().getCountry_region());
+
+        student.setMailingAddress(mailingAddress);
+        student.setHomeAddress(homeAddress);
         return studentRepository.save(student);
     }
 

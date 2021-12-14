@@ -4,27 +4,26 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import miu.edu.model.Course;
+import miu.edu.model.Student;
 
-import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AcademicBlockDto {
-
+public class CourseOfferingDto {
     @NonNull
-    private long id;
+    private Long id;
     @NonNull
     private String code;
     @NonNull
-    private String name;
-    @NonNull
-    private String semester;
-    @NonNull
-    private LocalDateTime startDate;
-    @NonNull
-    private LocalDateTime endDate;
+    private long capacity;
+
     @NonNull
     private List<CourseDto> courses;
+
+    private List<Student> students;
+
 }

@@ -5,6 +5,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter@Setter@ToString
 
@@ -39,6 +41,10 @@ public class Student {
 
     })
     private Address homeAddress;
+
+//    @OneToMany
+//    private List<Registration> registrations = new ArrayList<>();
+
 
     public Student() {}
 

@@ -1,24 +1,18 @@
 package miu.edu.controller;
 
-
-import miu.edu.dto.FacultyDto;
 import miu.edu.dto.StudentDto;
-import miu.edu.model.Faculty;
 import miu.edu.model.Student;
-import miu.edu.repository.FacultyRepository;
 import miu.edu.repository.StudentRepository;
-import miu.edu.service.Implementation.FacultyServiceImpl;
 import miu.edu.service.Implementation.StudentServiceImpl;
 import miu.edu.util.ResponseHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class StudentController {
@@ -74,4 +68,7 @@ public class StudentController {
         studentService.removeStudents();
         return ResponseHandler.respond("Successfully deleted a student!", HttpStatus.ACCEPTED);
     }
+
+
+
 }

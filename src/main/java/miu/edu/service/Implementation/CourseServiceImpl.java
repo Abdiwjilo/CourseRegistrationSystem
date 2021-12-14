@@ -2,9 +2,13 @@ package miu.edu.service.Implementation;
 
 import miu.edu.dto.CourseDto;
 import miu.edu.model.Course;
+import miu.edu.model.Student;
 import miu.edu.repository.CourseRepository;
 import miu.edu.service.CourseService;
 import miu.edu.util.exception.ResourceNotFoundException;
+import miu.edu.util.exception.StudentCourseIllegalStateException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,10 +16,14 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Transactional
 public class CourseServiceImpl implements CourseService {
+
+    private final static Logger LOG = LoggerFactory.getLogger(CourseService.class);
     @Autowired
     private CourseRepository courseRepository;
 
@@ -70,5 +78,6 @@ public class CourseServiceImpl implements CourseService {
         course.setDescription(courseDto.getDescription());
         return courseRepository.save(course);
     }
+
 
 }

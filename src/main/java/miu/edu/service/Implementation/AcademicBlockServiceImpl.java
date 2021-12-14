@@ -2,7 +2,10 @@ package miu.edu.service.Implementation;
 
 import miu.edu.dto.AcademicBlockDto;
 
+import miu.edu.dto.CourseDto;
 import miu.edu.model.AcademicBlock;
+import miu.edu.model.Course;
+import miu.edu.model.CourseOffering;
 import miu.edu.repository.AcademicBlockRepository;
 import miu.edu.service.AcademicBlockService;
 import miu.edu.util.exception.ResourceNotFoundException;
@@ -12,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -67,12 +71,36 @@ public class AcademicBlockServiceImpl implements AcademicBlockService {
 
     @Override
     public AcademicBlock addAcademicBlock(AcademicBlockDto academicBlockDto) {
+//        AcademicBlock academicBlock = new AcademicBlock();
+//        academicBlock.setCode(academicBlockDto.getCode());
+//        academicBlock.setName(academicBlockDto.getName());
+//        academicBlock.setSemester(academicBlockDto.getSemester());
+//        academicBlock.setStartDate(academicBlockDto.getStartDate());
+//        academicBlock.setEndDate(academicBlockDto.getEndDate());
+//        return academicBlockRepository.save(academicBlock);
+
+        List<Course> courses = new ArrayList<>();
+
+        for (CourseDto course:
+                academicBlockDto.getCourses()) {
+
+            Course currentCourse = new Course();
+            currentCourse.setCode(course.getCode());
+            currentCourse.setName(course.getName());
+            currentCourse.setDescription(course.getDescription());
+
+            courses.add(currentCourse);
+        }
+
         AcademicBlock academicBlock = new AcademicBlock();
         academicBlock.setCode(academicBlockDto.getCode());
         academicBlock.setName(academicBlockDto.getName());
         academicBlock.setSemester(academicBlockDto.getSemester());
         academicBlock.setStartDate(academicBlockDto.getStartDate());
         academicBlock.setEndDate(academicBlockDto.getEndDate());
+        academicBlock.setCourses(courses);
+
         return academicBlockRepository.save(academicBlock);
     }
+
 }

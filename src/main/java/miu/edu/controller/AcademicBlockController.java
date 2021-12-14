@@ -1,9 +1,7 @@
 package miu.edu.controller;
 
 import miu.edu.dto.AcademicBlockDto;
-import miu.edu.dto.FacultyDto;
 import miu.edu.model.AcademicBlock;
-import miu.edu.model.Faculty;
 import miu.edu.repository.AcademicBlockRepository;
 import miu.edu.service.Implementation.AcademicBlockServiceImpl;
 import miu.edu.util.ResponseHandler;
