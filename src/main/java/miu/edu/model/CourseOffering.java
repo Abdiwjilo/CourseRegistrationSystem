@@ -20,6 +20,9 @@ public class CourseOffering {
     private List<Student> students;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Course> courses; // TODO : EDIT MAPPING AND SET OR LIST
+    private List<Course> courses;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<AcademicBlock> academicBlocks;
 
 }

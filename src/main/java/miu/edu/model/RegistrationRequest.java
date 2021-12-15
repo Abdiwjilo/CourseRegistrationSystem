@@ -17,9 +17,8 @@ public class RegistrationRequest {
     @GeneratedValue
     private long id;
 
-    @ManyToOne
-    private Student student;
-
-    @OneToMany
-    private List<CourseOffering> courseOfferings = new ArrayList<>();
+    private long studentId;
+    private long academicBlockId;
+    @ElementCollection
+    private List<Long> coursesId;
 }

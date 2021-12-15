@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import miu.edu.model.Student;
 
 import java.util.List;
 @Data
@@ -13,7 +12,8 @@ import java.util.List;
 public class RegistrationGroupDto {
 
     @NonNull
-    private List<CourseDto> courses;
+    private List<StudentDto> students;
+    @NonNull
+    private List<AcademicBlockDto> academicBlocks;
 
-    private List<Student> students;
 }

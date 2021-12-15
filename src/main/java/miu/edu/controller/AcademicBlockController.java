@@ -44,7 +44,7 @@ public class AcademicBlockController {
     public ResponseEntity<?> addAcademicBlock(@RequestBody AcademicBlockDto academicBlockDto) {
         AcademicBlock academicBlock = academicBlockService.addAcademicBlock(academicBlockDto);
         if (academicBlock!= null) {
-            return ResponseHandler.respond("Successfully added a academicBlock !", HttpStatus.OK, academicBlock);
+            return ResponseHandler.respond("Successfully added a academic Block !", HttpStatus.OK, academicBlock);
         } else {
             return ResponseHandler.respond("Null entities found", HttpStatus.BAD_REQUEST);
         }
@@ -53,7 +53,7 @@ public class AcademicBlockController {
     @PutMapping(path = "academicblocks/{id}", consumes = "application/json")
     public ResponseEntity<?> updateAcademicBlock(@PathVariable Long id, @RequestBody AcademicBlockDto academicBlockDto) {
         AcademicBlock academicBlock = academicBlockService.updateAcademicBlock(id, academicBlockDto);
-        return ResponseHandler.respond("Successfully updated a academicBlock!", HttpStatus.ACCEPTED, academicBlock);
+        return ResponseHandler.respond("Successfully updated a academic Block!", HttpStatus.ACCEPTED, academicBlock);
     }
 
     @DeleteMapping("academicblocks/{id}")
@@ -64,6 +64,6 @@ public class AcademicBlockController {
     @DeleteMapping("academicblocks")
     public ResponseEntity<?> deleteAcademicBlocks() {
         academicBlockService.removeAcademicBlocks();
-        return ResponseHandler.respond("Successfully deleted a academicblocks!", HttpStatus.ACCEPTED);
+        return ResponseHandler.respond("Successfully deleted a academic blocks!", HttpStatus.ACCEPTED);
     }
     }

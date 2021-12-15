@@ -1,5 +1,6 @@
 package miu.edu.controller;
 
+import miu.edu.dto.RegistrationEventDto;
 import miu.edu.dto.StudentDto;
 import miu.edu.model.Student;
 import miu.edu.repository.StudentRepository;
@@ -69,6 +70,16 @@ public class StudentController {
         return ResponseHandler.respond("Successfully deleted a student!", HttpStatus.ACCEPTED);
     }
 
+    //Adding registration request
+//    @PostMapping("/students/registrationrequest")
+//    public ResponseEntity<?> addRegistrationrequest(@RequestBody RegistrationEventDto registrationEventDto) {
+//        Student student = studentService.addStudent(studentDto);
+//        if (student!= null) {
+//            return ResponseHandler.respond("Successfully added a student !", HttpStatus.OK, student);
+//        } else {
+//            return ResponseHandler.respond("Null entities found", HttpStatus.BAD_REQUEST);
+//        }
+//    }
 
 
 }

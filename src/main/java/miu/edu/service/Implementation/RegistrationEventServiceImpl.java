@@ -1,10 +1,7 @@
 package miu.edu.service.Implementation;
 
-import miu.edu.dto.RegistrationEventDto;
-import miu.edu.dto.RegistrationGroupDto;
-import miu.edu.model.Course;
-import miu.edu.model.RegistrationEvent;
-import miu.edu.model.RegistrationGroup;
+import miu.edu.dto.*;
+import miu.edu.model.*;
 import miu.edu.repository.RegistrationEventRepository;
 import miu.edu.service.RegistrationEventService;
 import miu.edu.util.exception.ResourceNotFoundException;
@@ -61,52 +58,111 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
         return registrationEvent;
     }
 
+    @Override
+    public List<RegistrationEvent> checkRegistrationEvent(){
 
+        LocalDateTime now = LocalDateTime.now();
+        return  registrationEventRepository.findRegistrationEventByStartDateLessThanAndEndDateGreaterThan(now, now);
+
+    }
 
     @Override
     public RegistrationEvent addRegistrationEvent(RegistrationEventDto registrationEventDto) {
 
-//       List<RegistrationGroup> registrationGroups = new ArrayList<>();
-//
-//       for (RegistrationGroupDto registrationGroup :
-//               registrationEventDto.getRegistrationGroups()){
-//           RegistrationGroup currentRegistrationGroup = new RegistrationGroup();
-//           currentRegistrationGroup.setStudents(
-//
-//           );
-//
-//       }
+        List<RegistrationGroup> registrationGroups = new ArrayList<>();
+
+        for (RegistrationGroupDto registrationGroupDto:
+                registrationEventDto.getRegistrationGroups()) {
+
+
+            List<Student> students = new ArrayList<>();
+
+            for (StudentDto student :
+                    registrationGroupDto.getStudents()) {
+
+                Student currentStudent = new Student();
+                currentStudent.setStudentId(student.getStudentId());
+                currentStudent.setName(student.getName());
+                currentStudent.setEmail(student.getEmail());
+                currentStudent.setMailingAddress(student.getMailingAddress());
+                currentStudent.setHomeAddress(student.getHomeAddress());
+
+                students.add(currentStudent);
+            }
+
+            List<AcademicBlock> academicBlocks = new ArrayList<>();
+
+            for (AcademicBlockDto academicBlock :
+                    registrationGroupDto.getAcademicBlocks()) {
+
+                AcademicBlock currentAcademicBlock = new AcademicBlock();
+                currentAcademicBlock.setCode(academicBlock.getCode());
+                currentAcademicBlock.setName(academicBlock.getName());
+                currentAcademicBlock.setSemester(academicBlock.getSemester());
+                currentAcademicBlock.setStartDate(academicBlock.getStartDate());
+                currentAcademicBlock.setEndDate(academicBlock.getEndDate());
+
+                academicBlocks.add(currentAcademicBlock);
+            }
+
+            RegistrationGroup registrationGroup = new RegistrationGroup();
+            registrationGroup.setStudents(students);
+            registrationGroup.setAcademicBlocks(academicBlocks);
+
+            registrationGroups.add(registrationGroup);
+        }
+
 
         RegistrationEvent registrationEvent = new RegistrationEvent();
-
         registrationEvent.setStartDate(registrationEventDto.getStartDate());
         registrationEvent.setEndDate(registrationEventDto.getEndDate());
+        registrationEvent.setRegistrationGroups(registrationGroups);
+
         return registrationEventRepository.save(registrationEvent);
-
     }
 
 
-    @Override
-    public RegistrationEvent checkRegistrationEvent(){
-        LocalDateTime now = LocalDateTime.now();
-        return registrationEventRepository.findRegistrationEventByStartDateLessThanAndEndDateGreaterThan(now, now);
-
-    }
 
 //    @Override
-//    public List<Subassignment> checkRegistrationEvent(long id, LocalDateTime startDateTime, LocalDateTime endDateTime) {
-//        return getEntityManager().createNamedQuery("ResourceVO.findByAssignmentIdAndDates", Subassignment.class)
-//                .setParameter("id", id)
-//                .setParameter("sdt", startDateTime)
-//                .setParameter("edt", endDateTime)
-//                .getResultList();
-//    }
-//<named-query name='ResourceVO.findByAssignmentIdAndDates'>
-//    <query>
-//    SELECT c FROM Subassignment AS c
-//    WHERE (c.assignmentId IN (SELECT b.id FROM Assignment b WHERE b.resource.id = :id))
-//    AND (c.startDateTime BETWEEN :sdt AND :edt)
+//    public RegistrationEvent addRegistrationGroupFromEvent(Long id ,RegistrationGroupDto registrationGroupDto) {
+//        RegistrationEvent registrationEvent = registrationEventRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("RegistrationGroup with id" + id + " not found for create"));
 //
-//    </query>
-//</named-query>
+//        List<Student> students = new ArrayList<>();
+//
+//        for (StudentDto student:
+//                registrationGroupDto.getStudents()) {
+//
+//            Student currentStudent = new Student();
+//            currentStudent.setStudentId(student.getStudentId());
+//            currentStudent.setName(student.getName());
+//            currentStudent.setEmail(student.getEmail());
+//            currentStudent.setMailingAddress(student.getMailingAddress());
+//            currentStudent.setHomeAddress(student.getHomeAddress());
+//
+//            students.add(currentStudent);
+//        }
+//
+//        List<AcademicBlock> academicBlocks = new ArrayList<>();
+//
+//        for (AcademicBlockDto academicBlock:
+//                registrationGroupDto.getAcademicBlocks()) {
+//
+//            AcademicBlock currentAcademicBlock = new AcademicBlock();
+//            currentAcademicBlock.setCode(academicBlock.getCode());
+//            currentAcademicBlock.setName(academicBlock.getName());
+//            currentAcademicBlock.setSemester(academicBlock.getSemester());
+//            currentAcademicBlock.setStartDate(academicBlock.getStartDate());
+//            currentAcademicBlock.setEndDate(academicBlock.getEndDate());
+//
+//            academicBlocks.add(currentAcademicBlock);
+//        }
+//
+//        RegistrationGroup registrationGroup = new RegistrationGroup();
+//        registrationGroup.setStudents(students);
+//        registrationGroup.setAcademicBlocks(academicBlocks);
+//
+//        return registrationEventRepository.save(registrationGroup);
+//    }
+
+
 }

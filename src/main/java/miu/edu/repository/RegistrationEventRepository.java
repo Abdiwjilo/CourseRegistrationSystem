@@ -6,9 +6,10 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Repository
 @Transactional
 public interface RegistrationEventRepository extends JpaRepository<RegistrationEvent, Long>{
-    RegistrationEvent findRegistrationEventByStartDateLessThanAndEndDateGreaterThan(LocalDateTime start, LocalDateTime end);
+    List<RegistrationEvent> findRegistrationEventByStartDateLessThanAndEndDateGreaterThan(LocalDateTime start, LocalDateTime end);
 }

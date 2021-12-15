@@ -1,8 +1,10 @@
 package miu.edu.controller;
 
 import miu.edu.dto.RegistrationEventDto;
+import miu.edu.dto.RegistrationGroupDto;
 import miu.edu.model.Course;
 import miu.edu.model.RegistrationEvent;
+import miu.edu.model.RegistrationGroup;
 import miu.edu.repository.RegistrationEventRepository;
 import miu.edu.service.Implementation.RegistrationEventServiceImpl;
 import miu.edu.util.ResponseHandler;
@@ -43,10 +45,10 @@ public class RegistrationEventController {
     }
 
     @PostMapping("/registrationevents")
-    public ResponseEntity<?> addRegistrationEvent(@RequestBody RegistrationEventDto registrationEventDto) {
+        public ResponseEntity<?> addRegistrationEvent(@RequestBody RegistrationEventDto registrationEventDto) {
         RegistrationEvent registrationEvent = registrationEventService.addRegistrationEvent(registrationEventDto);
-        if (registrationEvent!= null) {
-            return ResponseHandler.respond("Successfully added a registrationevent !", HttpStatus.OK, registrationEvent);
+        if (registrationEvent != null) {
+            return ResponseHandler.respond("Successfully added a registration event !", HttpStatus.OK, registrationEvent);
         } else {
             return ResponseHandler.respond("Null entities found", HttpStatus.BAD_REQUEST);
         }
@@ -55,19 +57,27 @@ public class RegistrationEventController {
     @PutMapping(path = "registrationevents/{id}", consumes = "application/json")
     public ResponseEntity<?> updateRegistrationEvent(@PathVariable Long id, @RequestBody RegistrationEventDto registrationEventDto) {
         RegistrationEvent registrationEvent = registrationEventService.updateRegistrationEvent(id, registrationEventDto);
-        return ResponseHandler.respond("Successfully updated a registrationevent!", HttpStatus.ACCEPTED, registrationEvent);
+        return ResponseHandler.respond("Successfully updated a registration event!", HttpStatus.ACCEPTED, registrationEvent);
     }
 
     @DeleteMapping("registrationevents/{id}")
     public ResponseEntity<?> deleteRegistrationEvent(@PathVariable Long id) {
         registrationEventService.removeRegistrationEvent(id);
-        return ResponseHandler.respond("Successfully deleted a registrationevent!", HttpStatus.ACCEPTED);
+        return ResponseHandler.respond("Successfully deleted a registration event!", HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/registrationevent/latest")
-    public ResponseEntity<?> checkRegistrationEvent(){
-       return ResponseHandler.respond("Successfully added a registrationevent !", HttpStatus.OK,  registrationEventService.checkRegistrationEvent());
+    public ResponseEntity<?> checkRegistrationEvent() {
+        return ResponseHandler.respond("Successfully added a registration event !", HttpStatus.OK, registrationEventService.checkRegistrationEvent());
     }
 
-
+//    @PostMapping("registrationevents/{id}/registerationgroup")
+//    public ResponseEntity<?> addRegistrationGroupFromEvent(@PathVariable Long id, @RequestBody RegistrationGroupDto registrationGroupDto) {
+//        RegistrationEvent registrationGroup = registrationEventService.addRegistrationGroupFromEvent(id, registrationGroupDto);
+//        if (registrationGroup != null) {
+//            return ResponseHandler.respond("Successfully added a registrationevent !", HttpStatus.OK, registrationGroup);
+//        } else {
+//            return ResponseHandler.respond("Null entities found", HttpStatus.BAD_REQUEST);
+//        }
+//    }
 }

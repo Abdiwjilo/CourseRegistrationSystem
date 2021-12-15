@@ -1,6 +1,7 @@
 package miu.edu.service;
 
 import miu.edu.dto.RegistrationEventDto;
+import miu.edu.dto.RegistrationGroupDto;
 import miu.edu.model.RegistrationEvent;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,5 +16,6 @@ public interface RegistrationEventService {
     RegistrationEvent addRegistrationEvent(RegistrationEventDto registrationEventDto);
     void removeRegistrationEvent(Long id);
     RegistrationEvent updateRegistrationEvent(Long id, RegistrationEventDto registrationEventDto);
-    RegistrationEvent checkRegistrationEvent();
+    List<RegistrationEvent> checkRegistrationEvent();
+    //RegistrationEvent addRegistrationGroupFromEvent(RegistrationGroupDto registrationGroupDto);
 }

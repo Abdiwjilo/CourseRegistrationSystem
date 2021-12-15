@@ -24,6 +24,10 @@ public class CourseOfferingDto {
     @NonNull
     private List<CourseDto> courses;
 
-    private List<Student> students;
+    @NonNull
+    private List<StudentDto> students;
+
+    @NonNull
+    private List<AcademicBlockDto> academicBlocks;
 
 }

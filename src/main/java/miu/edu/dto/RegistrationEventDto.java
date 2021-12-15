@@ -22,5 +22,7 @@ public class RegistrationEventDto {
     @NonNull
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime endDate;
-    private List<RegistrationGroup> registrationGroups;
+
+
+    private List<RegistrationGroupDto> registrationGroups;
 }

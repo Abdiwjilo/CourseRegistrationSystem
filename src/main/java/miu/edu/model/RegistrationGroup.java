@@ -3,6 +3,8 @@ package miu.edu.model;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import miu.edu.dto.AcademicBlockDto;
+import miu.edu.dto.StudentDto;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -22,4 +24,7 @@ public class RegistrationGroup {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<AcademicBlock> academicBlocks = new ArrayList<>();
+
+
+
 }

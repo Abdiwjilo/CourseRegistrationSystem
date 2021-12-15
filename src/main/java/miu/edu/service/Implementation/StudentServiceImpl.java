@@ -1,7 +1,9 @@
 package miu.edu.service.Implementation;
 
+import miu.edu.dto.RegistrationEventDto;
 import miu.edu.dto.StudentDto;
 import miu.edu.model.Address;
+import miu.edu.model.Course;
 import miu.edu.model.Student;
 import miu.edu.repository.StudentRepository;
 import miu.edu.service.StudentService;
@@ -90,5 +92,13 @@ public class StudentServiceImpl implements StudentService {
         student.setHomeAddress(homeAddress);
         return studentRepository.save(student);
     }
+
+
+    //Adding Registration request
+//    public List<Course> addRegistrationrequest(RegistrationEventDto registrationEventDto){
+//
+//    }
+
+
 
 }
