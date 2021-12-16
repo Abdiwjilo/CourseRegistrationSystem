@@ -70,6 +70,8 @@ public class StudentController {
         return ResponseHandler.respond("Successfully deleted a student!", HttpStatus.ACCEPTED);
     }
 
+
+
     //Adding registration request
 //    @PostMapping("/students/registrationrequest")
 //    public ResponseEntity<?> addRegistrationrequest(@RequestBody RegistrationEventDto registrationEventDto) {

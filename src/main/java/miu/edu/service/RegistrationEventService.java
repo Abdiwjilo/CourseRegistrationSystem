@@ -17,5 +17,6 @@ public interface RegistrationEventService {
     void removeRegistrationEvent(Long id);
     RegistrationEvent updateRegistrationEvent(Long id, RegistrationEventDto registrationEventDto);
     List<RegistrationEvent> checkRegistrationEvent();
+//    List<RegistrationEvent> checkRegistrationEventForStudentId();
     //RegistrationEvent addRegistrationGroupFromEvent(RegistrationGroupDto registrationGroupDto);
 }

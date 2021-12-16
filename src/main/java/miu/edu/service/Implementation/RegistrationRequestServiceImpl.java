@@ -2,18 +2,16 @@ package miu.edu.service.Implementation;
 
 import miu.edu.dto.RegistrationRequestDto;
 import miu.edu.dto.StudentDto;
-import miu.edu.model.Faculty;
-import miu.edu.model.RegistrationRequest;
-import miu.edu.model.Student;
+import miu.edu.model.*;
 import miu.edu.repository.RegistrationGroupRepository;
 import miu.edu.repository.RegistrationRequestRepository;
 import miu.edu.service.RegistrationRequestService;
+import miu.edu.util.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,43 +21,78 @@ public class RegistrationRequestServiceImpl implements RegistrationRequestServic
 
     @Autowired
     private RegistrationRequestRepository registrationRequestRepository;
+    @Autowired
+    private StudentServiceImpl studentService;
+    @Autowired
+    private AcademicBlockServiceImpl academicBlockService;
+    @Autowired
+    private CourseServiceImpl courseService;
+
+    @Autowired
+    private RegistrationGroupServiceImpl registrationGroupService;
 
     @Override
-    public List<Student> findAll() {
-        return null;
+    public List<RegistrationRequest> findAll() {
+        return registrationRequestRepository.findAll();
     }
 
     @Override
-    public Page<Student> findAll(Pageable pageable) {
-        return null;
+    public RegistrationRequest findById(Long id) {
+        return registrationRequestRepository
+                .findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Registration Request with id " + id + " not found"));
     }
 
-    @Override
-    public Student findById(Long id) {
-        return null;
-    }
+
+    Student student = null;
+    AcademicBlock academicBlock = null;
 
     @Override
-    public RegistrationRequest addRegistrationRequest(RegistrationRequestDto registrationRequestDto) {
+    public RegistrationRequest addRegistrationRequest(RegistrationRequestDto registrationRequestDto) throws Exception {
         RegistrationRequest requestDto = new RegistrationRequest();
-        requestDto.setStudentId(registrationRequestDto.getStudentId());
-        requestDto.setAcademicBlockId(registrationRequestDto.getAcademicBlockId());
-        requestDto.setCoursesId(registrationRequestDto.getCoursesId());
-        return registrationRequestRepository.save(requestDto);
+
+        if (studentService.findById(registrationRequestDto.getStudentId()) != null){
+            requestDto.setStudentId(registrationRequestDto.getStudentId());
+        }
+
+        if (academicBlockService.findById(registrationRequestDto.getAcademicBlockId()) != null){
+            requestDto.setAcademicBlockId(registrationRequestDto.getAcademicBlockId());
+        }
+
+        List<Long> coursesIds = new ArrayList<>();
+
+        for( Long courseId:
+        registrationRequestDto.getCoursesId()) {
+            if (courseService.findById(courseId) != null){
+                coursesIds.add(courseId);
+            } else{
+                throw new Exception();
+            }
+        }
+
+        requestDto.setCoursesId(coursesIds);
+
+         for(RegistrationGroup registrationGroup: registrationGroupService.findAll()) {
+             for(Student studentLoop: registrationGroup.getStudents()){
+                 if(studentLoop.getId() == registrationRequestDto.getStudentId()){
+                     student = studentLoop;
+                 }
+             }
+
+             for(AcademicBlock academicBlockLoop: registrationGroup.getAcademicBlocks()){
+                 if(academicBlockLoop.getId() == registrationRequestDto.getAcademicBlockId()){
+                     academicBlock = academicBlockLoop;
+                 }
+             }
+
+
+         }
+         if (student != null && academicBlock != null) {
+            return registrationRequestRepository.save(requestDto);
+         }else{
+           throw new Exception();
+         }
     }
 
-    @Override
-    public void removeStudent(Long id) {
 
-    }
-
-    @Override
-    public void removeStudents() {
-
-    }
-
-    @Override
-    public Student updateStudent(Long id, StudentDto studentDto) {
-        return null;
-    }
 }

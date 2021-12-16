@@ -2,6 +2,7 @@ package miu.edu.repository;
 
 import miu.edu.model.RegistrationEvent;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
@@ -12,4 +13,7 @@ import java.util.List;
 @Transactional
 public interface RegistrationEventRepository extends JpaRepository<RegistrationEvent, Long>{
     List<RegistrationEvent> findRegistrationEventByStartDateLessThanAndEndDateGreaterThan(LocalDateTime start, LocalDateTime end);
+
+//    @Query("")
+//    RegistrationEvent findByStudent();
 }

@@ -27,8 +27,14 @@ public class RegistrationRequestController {
 
 
     @PostMapping("/registrationrequest")
-    public ResponseEntity<?> addRegistrationRequest(@RequestBody RegistrationRequestDto registrationRequestDto) {
-        RegistrationRequest registrationRequest = registrationRequestService.addRegistrationRequest(registrationRequestDto);
+    public ResponseEntity<?> addRegistrationRequest(@RequestBody RegistrationRequestDto registrationRequestDto){
+        RegistrationRequest registrationRequest = null;
+        try {
+            registrationRequest = registrationRequestService.addRegistrationRequest(registrationRequestDto);
+        } catch (Exception e) {
+            return ResponseHandler.respond("Null entities found", HttpStatus.BAD_REQUEST);
+        }
+
         if (registrationRequest!= null) {
             return ResponseHandler.respond("Successfully apply for registration request!", HttpStatus.OK, registrationRequest);
         } else {

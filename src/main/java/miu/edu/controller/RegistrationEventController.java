@@ -13,12 +13,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
+@PreAuthorize("hasAnyAuthority('ADMIN')")
 public class RegistrationEventController {
 
     @Autowired
@@ -68,16 +70,7 @@ public class RegistrationEventController {
 
     @GetMapping("/registrationevent/latest")
     public ResponseEntity<?> checkRegistrationEvent() {
-        return ResponseHandler.respond("Successfully added a registration event !", HttpStatus.OK, registrationEventService.checkRegistrationEvent());
+        return ResponseHandler.respond("You are view the latest registration event !", HttpStatus.OK, registrationEventService.checkRegistrationEvent());
     }
 
-//    @PostMapping("registrationevents/{id}/registerationgroup")
-//    public ResponseEntity<?> addRegistrationGroupFromEvent(@PathVariable Long id, @RequestBody RegistrationGroupDto registrationGroupDto) {
-//        RegistrationEvent registrationGroup = registrationEventService.addRegistrationGroupFromEvent(id, registrationGroupDto);
-//        if (registrationGroup != null) {
-//            return ResponseHandler.respond("Successfully added a registrationevent !", HttpStatus.OK, registrationGroup);
-//        } else {
-//            return ResponseHandler.respond("Null entities found", HttpStatus.BAD_REQUEST);
-//        }
-//    }
 }

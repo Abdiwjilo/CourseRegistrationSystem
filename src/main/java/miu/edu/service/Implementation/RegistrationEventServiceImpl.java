@@ -5,7 +5,6 @@ import miu.edu.model.*;
 import miu.edu.repository.RegistrationEventRepository;
 import miu.edu.service.RegistrationEventService;
 import miu.edu.util.exception.ResourceNotFoundException;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -102,6 +101,19 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
                 currentAcademicBlock.setStartDate(academicBlock.getStartDate());
                 currentAcademicBlock.setEndDate(academicBlock.getEndDate());
 
+                List<Course> courses = new ArrayList<>();
+
+                for (CourseDto courseDto :
+                        academicBlock.getCourses()) {
+                    Course course = new Course();
+                    course.setName(courseDto.getName());
+                    course.setCode(courseDto.getCode());
+                    course.setDescription(courseDto.getDescription());
+                    courses.add(course);
+                }
+
+                currentAcademicBlock.setCourses(courses);
+
                 academicBlocks.add(currentAcademicBlock);
             }
 
@@ -120,49 +132,6 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
 
         return registrationEventRepository.save(registrationEvent);
     }
-
-
-
-//    @Override
-//    public RegistrationEvent addRegistrationGroupFromEvent(Long id ,RegistrationGroupDto registrationGroupDto) {
-//        RegistrationEvent registrationEvent = registrationEventRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("RegistrationGroup with id" + id + " not found for create"));
-//
-//        List<Student> students = new ArrayList<>();
-//
-//        for (StudentDto student:
-//                registrationGroupDto.getStudents()) {
-//
-//            Student currentStudent = new Student();
-//            currentStudent.setStudentId(student.getStudentId());
-//            currentStudent.setName(student.getName());
-//            currentStudent.setEmail(student.getEmail());
-//            currentStudent.setMailingAddress(student.getMailingAddress());
-//            currentStudent.setHomeAddress(student.getHomeAddress());
-//
-//            students.add(currentStudent);
-//        }
-//
-//        List<AcademicBlock> academicBlocks = new ArrayList<>();
-//
-//        for (AcademicBlockDto academicBlock:
-//                registrationGroupDto.getAcademicBlocks()) {
-//
-//            AcademicBlock currentAcademicBlock = new AcademicBlock();
-//            currentAcademicBlock.setCode(academicBlock.getCode());
-//            currentAcademicBlock.setName(academicBlock.getName());
-//            currentAcademicBlock.setSemester(academicBlock.getSemester());
-//            currentAcademicBlock.setStartDate(academicBlock.getStartDate());
-//            currentAcademicBlock.setEndDate(academicBlock.getEndDate());
-//
-//            academicBlocks.add(currentAcademicBlock);
-//        }
-//
-//        RegistrationGroup registrationGroup = new RegistrationGroup();
-//        registrationGroup.setStudents(students);
-//        registrationGroup.setAcademicBlocks(academicBlocks);
-//
-//        return registrationEventRepository.save(registrationGroup);
-//    }
 
 
 }

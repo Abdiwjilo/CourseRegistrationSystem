@@ -71,13 +71,6 @@ public class AcademicBlockServiceImpl implements AcademicBlockService {
 
     @Override
     public AcademicBlock addAcademicBlock(AcademicBlockDto academicBlockDto) {
-//        AcademicBlock academicBlock = new AcademicBlock();
-//        academicBlock.setCode(academicBlockDto.getCode());
-//        academicBlock.setName(academicBlockDto.getName());
-//        academicBlock.setSemester(academicBlockDto.getSemester());
-//        academicBlock.setStartDate(academicBlockDto.getStartDate());
-//        academicBlock.setEndDate(academicBlockDto.getEndDate());
-//        return academicBlockRepository.save(academicBlock);
 
         List<Course> courses = new ArrayList<>();
 

@@ -88,11 +88,25 @@ public class RegistrationGroupServiceImpl implements RegistrationGroupService {
             currentAcademicBlock.setSemester(academicBlock.getSemester());
             currentAcademicBlock.setStartDate(academicBlock.getStartDate());
             currentAcademicBlock.setEndDate(academicBlock.getEndDate());
+            List<Course> courses = new ArrayList<>();
+
+            for (CourseDto courseDto :
+                    academicBlock.getCourses()) {
+                Course course = new Course();
+                course.setName(courseDto.getName());
+                course.setCode(courseDto.getCode());
+                course.setDescription(courseDto.getDescription());
+                courses.add(course);
+            }
+
+            currentAcademicBlock.setCourses(courses);
 
             academicBlocks.add(currentAcademicBlock);
         }
 
         RegistrationGroup registrationGroup = new RegistrationGroup();
+        registrationGroup.setStudents(students);
+        registrationGroup.setAcademicBlocks(academicBlocks);
 
         return registrationGroupRepository.save(registrationGroup);
 
